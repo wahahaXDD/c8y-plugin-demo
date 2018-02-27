@@ -1,0 +1,18 @@
+{
+	"availability": "PRIVATE",
+	"contextPath": "demoapplication",
+	"key": "demoapplication-appkey",
+	"name": "demoapplication",
+	"resourcesUrl": "/",
+	"type": "HOSTED",
+	"imports": [
+		"demoapplication/myplugin",
+		"demoapplication/mywidget",
+		"demoapplication/showmeasure",
+		"core/c8yBranding",
+		"core/dashboard2",
+		"core/dashboardUI",
+		"cockpit/smartRulesUI",
+		"cockpit/home"
+	]
+}

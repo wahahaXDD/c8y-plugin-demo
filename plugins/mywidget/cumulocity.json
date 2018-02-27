@@ -1,0 +1,12 @@
+{
+    "name": "Widget test",
+    "description": "Simple hello world widget.",
+    "ngModules": [
+        "myapp.widget"
+    ],
+    "js": [
+        "widget.module.js",
+        "widget.config.js",
+        "widget.controller.js"
+    ]
+}

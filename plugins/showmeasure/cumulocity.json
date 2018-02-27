@@ -1,0 +1,13 @@
+{
+    "name": "Show measures",
+    "description": "顯示從平台資料庫取得的資料",
+    "ngModules": ["myapp.showmeasure"],
+    "js": [
+        "showmeasure.module.js",
+        "showmeasure.controller.js",
+        "showmeasure.config.js"
+    ],
+    "imports": [],
+    "css": [],
+    "copy": []
+}
