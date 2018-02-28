@@ -49,7 +49,6 @@
                 }
             });
             var measurements = [];
-            var count = 0;
             $scope.selected.forEach(function (datapoint) {
                 c8yMeasurements.listSeries(_.assign(c8yBase.timeOrderFilter(), {
                     source: datapoint.__target.id,
