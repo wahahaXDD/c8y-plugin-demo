@@ -12,43 +12,43 @@
 
     function MeasureController($scope, c8yBase, c8yMeasurements, c8yRealtime) {
         var scopeId = $scope.$id;
-        var channel = '/measurements/' + $scope.child.config.datapoints[0].__target.id;
-        var listening = 0;
+        var channels = [];
         var datapoints;
+        var count;
+        var measurements;
 
-        function startRealtime() {
-            listening++;
-            c8yRealtime.start(scopeId, channel);
-        }
 
         function setUpListeners() {
-            c8yRealtime.addListener(scopeId, channel, 'CREATE', onCreateMeasurement);
+            channels.forEach(function (channel) {
+                c8yRealtime.addListener(scopeId, "/measurements/" + channel, 'CREATE', setMeasurement);
+                c8yRealtime.start(scopeId, "/measurements/" + channel);
+            });
         }
 
-        function stopRealtime() {
-            c8yRealtime.stop(scopeId, channel);
+        function uniqueValue(value, index, self) {
+            return self.indexOf(value) === index;
         }
 
-        function onCreateMeasurement(action, measurementObject) {
-            init();
-        }
-
-        setUpListeners();
-
-        function init() {
-            if (listening == 1) {
-                stopRealtime();
-                listening = 0;
-            }
-            startRealtime();
+        function getSelected() {
             datapoints = $scope.child.config.datapoints;
-            $scope.selected = [];
             _.forEach(datapoints, function (datapoint) {
                 if (datapoint.__active) {
                     $scope.selected.push(datapoint);
+                    channels.push(datapoint.__target.id);
                 }
             });
-            var measurements = [];
+            channels = channels.filter(uniqueValue);
+        }
+
+        function destroyListeners() {
+            channels.forEach(function (channel) {
+                c8yRealtime.destroySubscription(scopeId, "/measurements/" + channel);
+            });
+        }
+
+        function setMeasurement() {
+            measurements = [];
+            count = 0;
             $scope.selected.forEach(function (datapoint) {
                 c8yMeasurements.listSeries(_.assign(c8yBase.timeOrderFilter(), {
                     source: datapoint.__target.id,
@@ -63,11 +63,30 @@
                     });
                     return Promise.resolve(datas);
                 }).then(function (datas) {
-                    $scope.datas = datas;
+                    measurements.push(datas);
+                    count++;
+                    if (count === $scope.selected.length) {
+                        $scope.measurements = measurements;
+                    }
                 });
             });
         }
-        init();
-    }
 
+
+        function init() {
+            $scope.selected = [];
+            if (!channels.length) {
+                getSelected();
+                setUpListeners();
+            } else {
+                destroyListeners();
+                channels = [];
+                getSelected();
+                setUpListeners();
+            }
+
+            setMeasurement();
+        }
+        $scope.$watch("child.config.datapoints", init, true);
+    }
 }());
