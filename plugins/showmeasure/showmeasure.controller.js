@@ -18,6 +18,7 @@
         var measurements;
 
 
+        // 增加並啟動數據的監聽器
         function setUpListeners() {
             channels.forEach(function (channel) {
                 c8yRealtime.addListener(scopeId, "/measurements/" + channel, 'CREATE', setMeasurement);
@@ -25,10 +26,12 @@
             });
         }
 
+        // 刪除陣列中重複值
         function uniqueValue(value, index, self) {
             return self.indexOf(value) === index;
         }
 
+        // 取得使用者選取的數據點
         function getSelected() {
             datapoints = $scope.child.config.datapoints;
             _.forEach(datapoints, function (datapoint) {
@@ -40,12 +43,14 @@
             channels = channels.filter(uniqueValue);
         }
 
+        // 刪除目前有的監聽器
         function destroyListeners() {
             channels.forEach(function (channel) {
                 c8yRealtime.destroySubscription(scopeId, "/measurements/" + channel);
             });
         }
 
+        // 取得目前的設定值並儲存
         function setMeasurement() {
             measurements = [];
             count = 0;
@@ -73,6 +78,7 @@
         }
 
 
+        // 啟動
         function init() {
             $scope.selected = [];
             if (!channels.length) {
@@ -84,9 +90,10 @@
                 getSelected();
                 setUpListeners();
             }
-
             setMeasurement();
         }
+
+        // 確認使用者是否有重新選取數據點
         $scope.$watch("child.config.datapoints", init, true);
     }
 }());
