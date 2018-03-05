@@ -14,9 +14,7 @@
     function widgetController($scope, c8yBase, c8yMeasurements, c8yRealtime, googleChartApiPromise) {
         var scopeId = $scope.$id;
         var channel;
-        var datapoints;
         var datapoint;
-
 
         // 增加並啟動數據的監聽器
         function setUpListeners() {
@@ -26,10 +24,9 @@
 
         // 取得使用者選取的數據點
         function getSelected() {
-            datapoints = $scope.child.config.datapoints;
-            for (var dp in datapoints) {
-                if (datapoints[dp].__active) {
-                    datapoint = datapoints[dp];
+            for (var dp in $scope.child.config.datapoints) {
+                if ($scope.child.config.datapoints[dp].__active) {
+                    datapoint = $scope.child.config.datapoints[dp];
                     channel = datapoint.__target.id;
                     break;
                 }
