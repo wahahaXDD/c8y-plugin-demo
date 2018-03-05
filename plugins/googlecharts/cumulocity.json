@@ -1,0 +1,13 @@
+{
+    "name": "Google charts plugin",
+    "description": "Demo how to use third party package to make plugin",
+    "ngModules": [
+        "myapp.googlecharts"
+    ],
+    "js": [
+        "/node_modules/angular-google-chart/ng-google-chart.min.js",
+        "googlecharts.module.js",
+        "googlecharts.config.js",
+        "googlecharts.controller.js"
+    ]
+}
