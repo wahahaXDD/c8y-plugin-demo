@@ -13,35 +13,32 @@
 
     function widgetController($scope, c8yBase, c8yMeasurements, c8yRealtime, googleChartApiPromise) {
         var scopeId = $scope.$id;
-        var channels = [];
+        var channel;
         var datapoints;
+        var datapoint;
 
 
         // 增加並啟動數據的監聽器
         function setUpListeners() {
-            c8yRealtime.addListener(scopeId, "/measurements/" + channels[0], 'CREATE', setMeasurement);
-            c8yRealtime.start(scopeId, "/measurements/" + channels[0]);
-        }
-
-        // 刪除陣列中重複值
-        function uniqueValue(value, index, self) {
-            return self.indexOf(value) === index;
+            c8yRealtime.addListener(scopeId, "/measurements/" + channel, 'CREATE', setMeasurement);
+            c8yRealtime.start(scopeId, "/measurements/" + channel);
         }
 
         // 取得使用者選取的數據點
         function getSelected() {
             datapoints = $scope.child.config.datapoints;
-            _.forEach(datapoints, function (datapoint) {
-                if (datapoint.__active) {
-                    $scope.selected.push(datapoint);
-                    channels.push(datapoint.__target.id);
+            for (var dp in datapoints) {
+                if (datapoints[dp].__active) {
+                    datapoint = datapoints[dp];
+                    channel = datapoint.__target.id;
+                    break;
                 }
-            });
+            }
         }
 
         // 刪除目前有的監聽器
         function destroyListeners() {
-            c8yRealtime.destroySubscription(scopeId, "/measurements/" + channels[0]);
+            c8yRealtime.destroySubscription(scopeId, "/measurements/" + channel);
         }
 
         // 取得目前的設定值並儲存
@@ -50,10 +47,10 @@
         // 若為Table則type為Table
         function setMeasurement() {
             c8yMeasurements.listSeries(_.assign(c8yBase.timeOrderFilter(), {
-                source: $scope.selected[0].__target.id,
+                source: datapoint.__target.id,
                 dateFrom: moment().subtract(1, "month").startOf("month").format(c8yBase.dateFullFormat),
                 dateTo: moment().format(c8yBase.dateFullFormat),
-                series: [$scope.selected[0].fragment + "." + $scope.selected[0].series]
+                series: [datapoint.fragment + "." + datapoint.series]
             })).then(function (res) {
                 return Promise.resolve(captureData(res));
             }).then(function (measurement) {
@@ -63,13 +60,11 @@
 
         // 啟動
         function init() {
-            $scope.selected = [];
-            if (!channels.length) {
+            if (!channel) {
                 getSelected();
                 setUpListeners();
             } else {
                 destroyListeners();
-                channels = [];
                 getSelected();
                 setUpListeners();
             }
