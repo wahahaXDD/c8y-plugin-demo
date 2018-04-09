@@ -15,3 +15,7 @@ angular@>1.2.9:
 "cumulocity-ui-build@http://resources.cumulocity.com/webapps/ui/9.0.2.tar.gz":
   version "9.0.2"
   resolved "http://resources.cumulocity.com/webapps/ui/9.0.2.tar.gz#a09f72a3ee2289e0cb13796f0215f76f7e0f74ac"
+
+ngmap@^1.18.4:
+  version "1.18.4"
+  resolved "https://registry.yarnpkg.com/ngmap/-/ngmap-1.18.4.tgz#8f36d8e840da6829ce5d40e5d747b70c4a3ac833"

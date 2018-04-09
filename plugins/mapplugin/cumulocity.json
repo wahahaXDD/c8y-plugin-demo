@@ -1,0 +1,13 @@
+{
+  "name": "Google Map Plugin",
+  "description": "Mapplugin plugin",
+  "ngModules": [
+    "myapp.googlemap"
+  ],
+  "js": [
+    "/node_modules/ngmap/build/scripts/ng-map.min.js",
+    "googlemap.module.js",
+    "googlemap.config.js",
+    "googlemap.controller.js"
+  ]
+}

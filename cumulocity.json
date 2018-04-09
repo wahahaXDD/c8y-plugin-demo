@@ -10,6 +10,7 @@
 		"demoapplication/mywidget",
 		"demoapplication/showmeasure",
 		"demoapplication/googlecharts",
+		"demoapplication/mapplugin",
 		"core/c8yBranding",
 		"core/dashboard2",
 		"core/dashboardUI",
