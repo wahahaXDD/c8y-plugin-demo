@@ -1,9 +1,19 @@
 <div ng-controller="MapController as vm">
+    <select ng-model="zoom">
+        <option value="5">5</option>
+        <option value="7">7</option>
+        <option value="9">9</option>
+        <option value="11">11</option>
+        <option value="13">13</option>
+        <option value="15">15</option>
+        <option value="17">17</option>
+    </select>
+
     <div map-lazy-load="https://maps.google.com/maps/api/js" map-lazy-load-params="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA9p-VcduuEx26akKWfJexErfC0H1eMB8">
         <div>
             Info Windows
             <br/> This example displays a marker at the center of Australia. When the user clicks the marker, an info window opens.
-            <ng-map default-style="true" center="-25.363882,131.044922" zoom="4">
+            <ng-map default-style="true" center="-25.363882,131.044922" zoom={{toInt(zoom)}}>
                 <marker id="foo" position="-25.363882,131.044922" on-click="map.showInfoWindow('bar')">
                 </marker>
                 <info-window id="bar" visible-on-marker="foo">

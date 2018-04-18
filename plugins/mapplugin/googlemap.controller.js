@@ -13,7 +13,10 @@
 
     function MapController($scope, NgMap) {
         // $scope.center = "25.054121, 121.531752";
-        // $scope.zoom = 20;
+        $scope.zoom = "5";
+        $scope.toInt = function(val){
+            return parseInt(val);
+        };
         NgMap.getMap().then(function (map) {
             $scope.map = map;
         });
