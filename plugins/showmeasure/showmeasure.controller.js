@@ -95,5 +95,6 @@
 
         // 確認使用者是否有重新選取數據點
         $scope.$watch("child.config.datapoints", init, true);
+        $scope.$on("destroy", destroyListeners);
     }
 }());

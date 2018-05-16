@@ -20,7 +20,7 @@
             description: gettext('用 Google Map api 製作的 plugin。'), // ... a description
             templateUrl: ':::PLUGIN_PATH:::/views/googlemap.html', // ... displaying *"charts.main.html"* when added to the dashboard
             options: {
-                noDeviceTarget: true
+                noDeviceTarget: false
             }
         });
     }
