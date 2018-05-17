@@ -11,6 +11,7 @@
 		"demoapplication/showmeasure",
 		"demoapplication/googlecharts",
 		"demoapplication/mapplugin",
+		"demoapplication/tracking_map",
 		"core/c8yBranding",
 		"core/dashboard2",
 		"core/dashboardUI",

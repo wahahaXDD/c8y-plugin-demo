@@ -1,0 +1,13 @@
+{
+  "name": "Tracking Map Plugin",
+  "description": "顯示從平台資料庫取得的資料",
+  "ngModules": ["myapp.tracking"],
+  "js": [
+    "tracking.module.js",
+    "tracking.controller.js",
+    "tracking.config.js"
+  ],
+  "imports": [],
+  "css": [],
+  "copy": []
+}
