@@ -57,12 +57,10 @@
                 source: channel
             })).then(function (events) {
             positions = [];
-            for (event in events) {
-                if (!isNaN(event)) {
-                    var position = formatPosition(events[event].c8y_Position);
-                    if (positions.indexOf(position) < 0)
-                        positions.push(position);
-                }
+            for (var i = 0; i < events.length; i++) {
+                var position = formatPosition(events[i].c8y_Position);
+                if (positions.indexOf(position) < 0)
+                    positions.push(position);
             }
             $scope.positions = positions;
         });
