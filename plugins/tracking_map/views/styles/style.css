@@ -1,0 +1,10 @@
+#map-container {
+    height: 800px;
+}
+
+ng-map#tracking-map {
+    width: 95%;
+    height: 80% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
