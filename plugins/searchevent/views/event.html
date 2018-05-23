@@ -1,0 +1,24 @@
+<section id="timeline" style="height: inherit;">
+    <ul>
+        <li ng-repeat="event in events">
+            <div>
+                <p>
+                    <time>{{ event.time | date:"yyyy/M/d HH:mm" }}</time>
+                    <p>
+                        {{ event.text }}
+                        <a c8y-icon="cog" class="fa fw fa-cog" href="{{ event.source.self }}">{{ event.source.name }}</a>
+                    </p>
+                </p>
+                <p class="legend form-block">DETAILS</p>
+                <dl class="dl-inline small text-muted">
+                    <dt translate>Time: </dt>
+                    <dd>{{ event.time | date:"d MMM yyyy HH:mm:ss" }}</dd>
+                </dl>
+                <dl class="dl-inline small text-muted">
+                    <dt translate>Type: </dt>
+                    <dd>{{ event.type }}</dd>
+                </dl>
+            </div>
+        </li>
+    </ul>
+</section>

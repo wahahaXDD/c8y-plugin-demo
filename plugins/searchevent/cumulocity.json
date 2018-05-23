@@ -1,0 +1,16 @@
+{
+    "name": "Test Event Plugin",
+    "description": "Plugin to search event from certain date",
+    "ngModules": [
+        "searchevent"
+    ],
+    "css": [
+        "views/styles/style.css"
+    ],
+    "js": [
+        "searchevent.module.js",
+        "searchevent.config.js",
+        "searchevent.directive.js",
+        "searchevent.controller.js"
+    ]
+}

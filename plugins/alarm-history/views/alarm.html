@@ -1,0 +1,25 @@
+<section id="timeline" style="height: inherit;">
+    <ul>
+        <li ng-repeat="alarm in alarms">
+            <div>
+                <p>
+                    <time>{{ alarm.time | date:"yyyy/M/d HH:mm" }}</time>
+                    <p>
+                        {{ alarm.text }}
+                        <br>
+                        <a c8y-icon="cog" class="fa fw fa-cog" href="{{ alarm.source.self }}">{{ alarm.source.name }}</a>
+                    </p>
+                </p>
+                <p class="legend form-block">DETAILS</p>
+                <dl class="dl-inline small text-muted">
+                    <dt translate>Time: </dt>
+                    <dd>{{ alarm.time | date:"d MMM yyyy HH:mm:ss" }}</dd>
+                </dl>
+                <dl class="dl-inline small text-muted">
+                    <dt translate>Type: </dt>
+                    <dd>{{ alarm.type }}</dd>
+                </dl>
+            </div>
+        </li>
+    </ul>
+</section>

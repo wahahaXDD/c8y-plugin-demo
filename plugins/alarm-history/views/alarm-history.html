@@ -1,0 +1,15 @@
+<div ng-controller="AlarmController as AC" style="overflow:auto;height: inherit; position:relative" id="alarmScroll">
+    <div id="search">
+        <div>
+            <h5>Start Date: </h5>
+        <input type="date" name="startDate" id="startDate" ng-model="AC.start">
+        <h5>End Date: </h5>
+        <input type="date" name="endDate" id="endDate" ng-model="AC.end">
+        </div>
+        <div>
+            <button class="btn btn-default" ng-click="searchAlarm()">送出查詢</button>
+        </div>
+    </div>
+
+    <alarm-directive alarms="AC.alarms"></alarm-directive>
+</div>

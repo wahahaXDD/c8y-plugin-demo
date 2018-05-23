@@ -1,0 +1,95 @@
+#search {
+    margin-top: 20px;
+    padding-left: 15px;
+}
+
+#search div h5,
+#search div input {
+    display: inline-block;
+}
+
+#search div button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+#timeline ul {
+    padding: 15px 20px;
+    float: left;
+}
+
+#timeline ul li {
+    list-style-type: none;
+    position: relative;
+    width: 3px;
+    margin: 0 auto;
+    padding-top: 30px;
+    background: #000;
+}
+
+#timeline ul li::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: inherit;
+}
+
+#timeline ul li div {
+    position: relative;
+    bottom: 0;
+    width: 400px;
+    padding: 15px;
+    background: rgb(214, 211, 211);
+}
+
+#timeline ul li div::before {
+    content: '';
+    position: absolute;
+    bottom: 7px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+#timeline ul li div {
+    left: 45px;
+}
+
+#timeline ul li div::before {
+    left: -15px;
+    border-width: 8px 16px 8px 0;
+    border-color: transparent rgb(214, 211, 211) transparent transparent;
+}
+
+time {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.legend {
+    color: #000;
+}
+
+@media only screen and (max-width: 900px) {
+    #timeline ul li div {
+        width: 250px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #timeline ul li {
+        margin-left: 20px;
+    }
+    #timeline ul li div {
+        width: calc(100vw - 150px);
+    }
+}

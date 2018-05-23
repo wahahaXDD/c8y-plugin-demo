@@ -1,0 +1,14 @@
+{
+  "name": "Alarm History",
+  "description": "報警歷史紀錄查詢的元件",
+  "ngModules": ["myapp.alarm-history"],
+  "js": [
+    "alarm-history.module.js",
+    "alarm-history.controller.js",
+    "alarm-history.directive.js",
+    "alarm-history.config.js"
+  ],
+  "imports": [],
+  "css": ["views/styles/style.css"],
+  "copy": []
+}
