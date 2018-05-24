@@ -16,27 +16,18 @@
         var self = this;
         var alarmList = [];
         var currentPage = 1;
-        var selected = angular.element(document.querySelector("#alarmScroll"));
-        var element = selected[0];
         self.start = moment().subtract(1, "month").toDate();
         self.end = moment().toDate();
-
-        selected.bind('scroll', function () {
-            var position = Math.ceil(element.offsetHeight + element.scrollTop);
-            if (position == element.scrollHeight) {
-                addAlarm();
-            }
-        });
 
         $scope.searchAlarm = function () {
             if (self.start || self.end || self.end > self.start) {
                 alarmList = [];
                 currentPage = 1;
-                addAlarm();
+                self.addAlarm();
             }
         }
 
-        var addAlarm = function () {
+        self.addAlarm = function () {
             c8yAlarms.list(
                 _.assign(c8yBase.timeOrderFilter(), {
                     source: $scope.child.config.device.id,
@@ -50,13 +41,11 @@
                     res.forEach(function (alarm) {
                         alarmList.push(alarm);
                     });
-                    self.scrollStatus = false;
                     currentPage++;
                     self.alarms = alarmList;
-                    currentPage++;
                 }
             });
         }
-        addAlarm();
+        self.addAlarm();
     }
 }());

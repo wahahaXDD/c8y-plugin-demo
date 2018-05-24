@@ -15,27 +15,18 @@
         var self = this;
         var eventList = [];
         var currentPage = 1;
-        var selected = angular.element(document.querySelector("#eventScroll"));
-        var element = selected[0];
         var start = $scope.child.config.Date[0];
         var end = $scope.child.config.Date[1];
-
-        selected.bind('scroll', function () {
-            var position = Math.ceil(element.offsetHeight + element.scrollTop);
-            if (position == element.scrollHeight) {
-                addEvent();
-            }
-        });
 
         $scope.$watch("child.config.Date", function (newVal, oldVal) {
             eventList = [];
             currentPage = 1;
             start = $scope.child.config.Date[0];
             end = $scope.child.config.Date[1];
-            addEvent();
+            self.addEvent();
         })
 
-        var addEvent = function () {
+        self.addEvent = function () {
             c8yEvents.list(
                 _.assign(c8yBase.timeOrderFilter(), {
                     source: $scope.child.config.device.id,
