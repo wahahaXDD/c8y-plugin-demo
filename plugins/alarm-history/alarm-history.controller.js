@@ -37,6 +37,7 @@
                     currentPage: currentPage
                 })
             ).then(function (res) {
+                console.log(res);
                 if (res.length) {
                     res.forEach(function (alarm) {
                         alarmList.push(alarm);

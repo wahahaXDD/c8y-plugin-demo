@@ -2,8 +2,9 @@
     <ul>
         <li ng-repeat="alarm in alarms">
             <div>
+                <p class="alarm-count">{{ alarm.count }}</p>
                 <p>
-                    <time>{{ alarm.time | date:"yyyy/M/d HH:mm" }}</time>
+                    <time>{{ alarm.createtime | date:"yyyy/M/d HH:mm" }}</time>
                     <p>
                         {{ alarm.text }}
                         <br>

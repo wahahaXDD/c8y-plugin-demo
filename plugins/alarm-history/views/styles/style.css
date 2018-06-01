@@ -47,6 +47,7 @@
     width: 400px;
     padding: 15px;
     background: rgb(214, 211, 211);
+    left: 45px;
 }
 
 #timeline ul li div::before {
@@ -58,14 +59,14 @@
     border-style: solid;
 }
 
-#timeline ul li div {
-    left: 45px;
-}
-
 #timeline ul li div::before {
     left: -15px;
     border-width: 8px 16px 8px 0;
     border-color: transparent rgb(214, 211, 211) transparent transparent;
+}
+
+.alarm-count {
+    color: red;
 }
 
 time {
