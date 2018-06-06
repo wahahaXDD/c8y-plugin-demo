@@ -1,0 +1,13 @@
+{
+  "name": "Send Demo Data Plugin",
+  "description": "SendDemo plugin",
+  "ngModules": [
+    "sendDemo"
+  ],
+  "css": ["views/styles/style.css"],
+  "js": [
+    "sendDemo.module.js",
+    "sendDemo.config.js",
+    "sendDemo.controller.js"
+  ]
+}

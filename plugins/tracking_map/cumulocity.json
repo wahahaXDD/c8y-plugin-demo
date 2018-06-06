@@ -8,6 +8,6 @@
     "tracking.config.js"
   ],
   "imports": [],
-  "css": ["/views/styles/style.css"],
+  "css": ["views/styles/style.css"],
   "copy": []
 }

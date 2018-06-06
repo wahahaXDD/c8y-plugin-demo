@@ -1,0 +1,102 @@
+<div ng-controller="DemoDataController as DDC" id="demoDataSender">
+    <div class="row btns">
+        <div class="col-md-3">
+            <div class="btn btn-primary" ng-click="DDC.showEvent()">事件</div>
+        </div>
+        <div class="col-md-3">
+            <div class="btn btn-primary" ng-click="DDC.showAlarm()">報警</div>
+        </div>
+        <div class="col-md-3">
+            <div class="btn btn-primary" ng-click="DDC.showMeasurement()">數值</div>
+        </div>
+        <div class="col-md-3">
+            <div class="btn btn-primary" ng-click="DDC.showPosition()">位置</div>
+        </div>
+    </div>
+    <div class="main">
+        <div id="tEvent" ng-show="DDC.tEvent">
+            <div class="description">
+                <h4>將對ID為{{ DDC.deviceID }}的設備送出c8y_TestEvent型態的事件</h4>
+                <input class="form-control" type="text" placeholder="請輸入欲顯示的事件敘述" ng-model="DDC.event.text">
+                <input class="btn btn-success" type="button" value="送出事件" ng-click="DDC.sendEvent()">
+            </div>
+            <hr ng-show="DDC.event.sent">
+            <div class="result" ng-show="DDC.event.sent">
+                <h4>設備ID: {{ DDC.deviceID }}</h4>
+                <h4>事件建立時間： {{ DDC.event.resp.creationTime | date: "yyyy-MM-dd HH:mm:ss.sss"}}</h4>
+                <h4>事件發生時間： {{ DDC.event.resp.time | date: "yyyy-MM-dd HH:mm:ss.sss"}}</h4>
+                <h4>事件敘述： {{ DDC.event.resp.text }}</h4>
+            </div>
+        </div>
+        <div id="tAlarm" ng-show="DDC.tAlarm">
+            <div class="description">
+                <h4>將對ID為{{ DDC.deviceID }}的設備送出c8y_TestAlarm型態的報警</h4>
+                <input class="form-control" type="text" placeholder="請輸入欲顯示的報警敘述" ng-model="DDC.alarm.text">
+                <p>報警嚴重等級 (預設將為WARNING)：</p>
+                <select id="aSeverity" class="form-control" ng-model="DDC.alarm.severity">
+                    <option value="WARNING">WARNING</option>
+                    <option value="MINOR">MINOR</option>
+                    <option value="MAJOR">MAJOR</option>
+                    <option value="CRITICAL">CRITICAL</option>
+                </select>
+                <br>
+                <input type="button" class="btn btn-success" value="送出報警" ng-click="DDC.sendAlarm()">
+            </div>
+            <hr ng-show="DDC.alarm.sent">
+            <div class="result" ng-show="DDC.alarm.sent">
+                <h4>設備ID: {{ DDC.deviceID }}</h4>
+                <h4>報警建立時間： {{ DDC.alarm.resp.time | date: "yyyy-MM-dd HH:mm:ss.sss" }}</h4>
+                <h4>報警嚴重等級： {{ DDC.alarm.resp.severity }}</h4>
+                <h4>報警敘述： {{ DDC.alarm.resp.text }}</h4>
+            </div>
+        </div>
+        <div id="tMeasurement" ng-show="DDC.tMeasurement">
+            <div class="description">
+                <h4>將對ID為{{ DDC.deviceID }}的設備送出數據</h4>
+                <h5>請輸入片段名稱：</h5>
+                <input class="form-control" type="text" ng-model="DDC.measurement.fragmentName" placeholder="預設為：c8y_TestMeasurement">
+                <h5>請輸入系列名稱：</h5>
+                <input class="form-control" type="text" ng-model="DDC.measurement.seriesName" placeholder="預設為：Test">
+                <h5>請輸入設備資料類型：</h5>
+                <input class="form-control" type="text" ng-model="DDC.measurement.mType" placeholder="預設為：c8y_TestMeasurement">
+                <div class="value">
+                    <div class="col-md-6">
+                        <h5>請輸入數值：</h5>
+                        <input class="form-control" type="number" ng-model="DDC.measurement.measurement">
+                    </div>
+                    <div class="col-md-6">
+                        <h5>請輸入單位：</h5>
+                        <input class="form-control" type="text" ng-model="DDC.measurement.unit" placeholder="選擇性填寫">
+                    </div>
+                </div>
+                <input class="btn btn-success" type="button" value="送出數值" ng-click="DDC.sendMeasurement()">
+            </div>
+            <hr ng-show="DDC.measurement.sent">
+            <div class="result" ng-show="DDC.measurement.sent">
+                <h4>設備ID: {{ DDC.deviceID }}</h4>
+                <h4>數值建立時間： {{ DDC.measurement.resp.time | date: "yyyy-MM-dd HH:mm:ss.sss" }}</h4>
+                <h4>片段名稱： {{ DDC.measurement.fragmentName+"."+DDC.measurement.seriesName }}</h4>
+            </div>
+        </div>
+        <div id="tPosition" ng-show="DDC.tPosition">
+            <div class="description">
+                <h4>將對ID為{{ DDC.deviceID }}的設備送出c8y_Position型態位置資料</h4>
+                <p>高度：</p>
+                <input type="number" ng-model="DDC.position.alt">
+                <br>
+                <p>經度：</p>
+                <input type="number" ng-model="DDC.position.lng">
+                <br>
+                <p>緯度：</p>
+                <input type="number" ng-model="DDC.position.lat">
+                <br>
+                <input class="btn btn-success" type="button" value="送出位置" ng-click="DDC.sendPosition()">
+            </div>
+            <hr ng-show="DDC.position.sent">
+            <div class="result" ng-show="DDC.position.sent">
+                <h4>設備ID: {{ DDC.deviceID }}</h4>
+                <h4>建立時間： {{ DDC.position.resp.time | date: "yyyy-MM-dd HH:mm:ss.sss" }}</h4>
+            </div>
+        </div>
+    </div>
+</div>
