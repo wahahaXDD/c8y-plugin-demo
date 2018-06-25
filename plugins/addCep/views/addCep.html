@@ -1,0 +1,11 @@
+<div ng-controller="AddCepController" class="cep-adder">
+    <br>
+    <label for="thresholdTop">請輸入上限值</label>
+    <input id="thresholdTop" type="number" class="form-group form-control" min="{{thresholdDown}}" ng-model="thresholdTop">
+    <label for="thresholdDown">請輸入下限值</label>
+    <input id="thresholdDown" type="number" class="form-group form-control" max="{{thresholdTop}}" ng-model="thresholdDown">
+    <label for="alarm-text">請輸入報警訊息</label>
+    <input id="alarm-text" type="text" class="form-group form-control" ng-model="alarm_text" placeholder="請輸入報警訊息">
+    <button class="btn btn-primary" ng-click="setRules()">添加智能規則</button>
+    <button class="btn btn-danger" ng-click="removeRules()">移除智能規則</button>
+</div>

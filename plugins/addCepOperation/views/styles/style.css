@@ -1,0 +1,9 @@
+.cep-adder input{
+    width: 200px;
+}
+
+.cep-adder{
+    width: 300px;
+    height: 200px;
+    padding-left: 30px;
+}

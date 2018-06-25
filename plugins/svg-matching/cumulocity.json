@@ -1,0 +1,15 @@
+{
+  "name": "SVG Matching",
+  "description": "Automatically link datapoint to svg anchor",
+  "ngModules": [
+    "svgMatch"
+  ],
+  "css": ["views/styles/style.css"],
+  "js": [
+    "svgMatch.module.js",
+    "svgMatch.config.js",
+    "svgConfig.controller.js",
+    "svgShow.directive.js",
+    "svgMatch.controller.js"
+  ]
+}

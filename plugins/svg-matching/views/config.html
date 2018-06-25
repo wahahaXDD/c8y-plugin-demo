@@ -1,0 +1,4 @@
+<div ng-controller="SVGConfigController as svgCCtrl">
+    <input type="file" id="svgInput" accept=".svg" ng-disabled="targetNotSelectedValidation()">
+    <svg-show-directive svg-data="config.svgData" frag-list="config.fragList" device-id="config.device.id" show="svgCCtrl.svgShow"></svg-show-directive>
+</div>

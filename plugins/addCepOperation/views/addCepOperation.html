@@ -1,0 +1,11 @@
+<div ng-controller="AddCepOperationController" class="cep-adder">
+    <br>
+    <label for="threshold">請輸入閥值</label>
+    <span class="label label-danger">若小於閥值，則設備關閉</span>
+    <input id="threshold" type="number" class="form-group form-control" ng-model="threshold">
+    <label for="deviceId">請輸入要控制的設備ID</label>
+    <input id="deviceId" type="number" class="form-group form-control" ng-model="deviceId">
+
+    <button class="btn btn-primary" ng-click="setRules()">添加智能規則</button>
+    <button class="btn btn-danger" ng-click="removeRules()">移除智能規則</button>
+</div>

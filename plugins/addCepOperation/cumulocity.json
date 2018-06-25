@@ -1,0 +1,15 @@
+{
+  "name": "Add Cep Rules",
+  "description": "於控制台添加數據值上下限的智能規則",
+  "ngModules": ["addCepOperation"],
+  "js": [
+    "addCepOperation.module.js",
+    "addCepOperation.controller.js",
+    "addCepOperation.config.js"
+  ],
+  "css": [
+    "views/styles/style.css"
+  ],
+  "imports": [],
+  "copy": []
+}
