@@ -11,6 +11,7 @@
   "dependencies": {
     "angular-google-chart": "^0.1.0",
     "cumulocity-ui-build": "http://resources.cumulocity.com/webapps/ui/9.0.2.tar.gz",
+    "d3": "^5.5.0",
     "ngmap": "^1.18.4"
   }
 }

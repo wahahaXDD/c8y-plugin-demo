@@ -1,0 +1,15 @@
+{
+  "name": "Pie Chart",
+  "description": "Pie Chart plugin",
+  "ngModules": [
+    "pieChart"
+  ],
+  "js": [
+    "/node_modules/d3/dist/d3.js",
+    "pieChart.module.js",
+    "pieChart.controller.js",
+    "pieChart.config.js",
+    "pieChart.directive.js"
+  ],
+  "css":["views/styles/style.css"]
+}

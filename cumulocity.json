@@ -18,6 +18,7 @@
 		"demoapplication/svg-matching",
 		"demoapplication/addCepOperation",
 		"demoapplication/addCep",
+		"demoapplication/pieChart",
 		"core/c8yBranding",
 		"core/dashboard2",
 		"core/dashboardUI",
