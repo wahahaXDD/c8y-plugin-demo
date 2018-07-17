@@ -1,0 +1,10 @@
+<div ng-controller="ConfigController as $ctrl">
+    <div ng-repeat="info in config.info">
+        <p>{{ info.name }}</p>
+        <label>URL</label>
+        <input type="text" ng-model="info.url">
+        <label>SOP</label>
+        <input type="text" ng-model="info.sop">
+    </div>
+    <button ng-click="$ctrl.saveSOP()">儲存</button>
+</div>

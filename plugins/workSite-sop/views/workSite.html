@@ -1,0 +1,93 @@
+<div ng-controller="WorkSiteController as $ctrl">
+    <table class="table table-hover work-site-table">
+        <thead>
+            <th ng-click="sortBySiteName()">工程名稱</th>
+            <th>狀態</th>
+            <th ng-click="sortByActiveCount()">異常數</th>
+            <th ng-click="sortByResolvedCount()">處理數</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="p in sites">
+                <td>
+                    <a href="#/" ng-href="../cockpit#/group/{{p.site.id}}">
+                        {{p.site.name}}
+                    </a>
+                </td>
+                <td>
+                    {{p.active.length>0?"異常":"正常"}}
+                </td>
+                <td class="text-danger counter" ng-class="{'info' : hoverActive}" ng-mouseover="hoverActive=true" ng-mouseleave="hoverActive=false"
+                    ng-click="$ctrl.open(p.active, 0)">
+                    {{p.active.length}}
+                </td>
+                <td class="text-success counter" ng-class="{'info' : hoverResolved}" ng-mouseover="hoverResolved=true" ng-mouseleave="hoverResolved=false"
+                    ng-click="$ctrl.open(p.resolved, 1)">
+                    {{p.resolved.length}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-controller="WorkSiteController as $ctrl" class="modal-demo">
+        <script type="text/ng-template" id="modalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">工程回報系統</h3>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div style="max-height:450px;overflow-y:auto">
+                    <table class="table table-hover">
+                        <thead>
+                            <th>警報來源</th>
+                            <th>處理狀態</th>
+                            <th>警報次數</th>
+                            <th>起始時間</th>
+                            <th>更新時間</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="p in $ctrl.alarms.list" style="cursor: pointer;" ng-click="$ctrl.showHistory(p)">
+                                <td>{{p.source.name}}</td>
+                                <td>
+                                    {{p.text}}
+                                </td>
+                                <td>{{p.count}}</td>
+                                <td>
+                                    {{p.creationTime|date:'yyyy-MM-dd hh:mm:ss'}}
+                                </td>
+                                <td>
+                                    {{(p.firstOccurrenceTime?p.firstOccurrenceTime:p.creationTime)|date:'yyyy-MM-dd hh:mm:ss'}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-show="$ctrl.show[0]" class="well">
+                    <p>參考文件:
+                        <span ng-bind-html="$ctrl.SOPs[$ctrl.currentInfo.type].url"></span>
+                    </p>
+                    <p>SOP:</p>
+                    <ul>
+                        <li ng-repeat="p in $ctrl.SOPs[$ctrl.currentInfo.type].sop.split(';')">{{p}}</li>
+                    </ul>
+                    <p>處理記錄</p>
+                    <ul style="max-height:250px;overflow-y:auto">
+                        <li ng-repeat="q in $ctrl.currentInfo.history|filter:{'type':'Alarm'}">
+                            <span class="pull-left">{{{'Alarm created':'處理進度','Alarm updated':'處理進度','Alarm cleared':'處理進度'}[q.activity]+" | 詳情："+q.text}}</span>
+                            <span class="pull-right">{{q.user}}</span>
+                            <span class="pull-right">{{q.creationTime|date:'yyyy-MM-dd hh:mm:ss'}}</span>
+                        </li>
+                    </ul>
+                    <hr style="border-color:#999" ng-show="$ctrl.currentInfo.status!='CLEARED'">
+                    <div class="row" ng-show="$ctrl.currentInfo.status!='CLEARED'">
+                        <div class="col-sm-9">
+                            <textarea ng-model="$ctrl.content" placeholder="處理內容輸入" rows="3" class="col-sm-12"></textarea>
+                        </div>
+                        <div class="col-sm-3">
+                            <button class="btn btn-success col-sm-12" ng-click="$ctrl.send(0)">送出</button>
+                            <button class="btn btn-danger col-sm-12" ng-click="$ctrl.send(1)">結案</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </script>
+    </div>
+</div>

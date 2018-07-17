@@ -1,0 +1,14 @@
+{
+    "name": "Work Site SOP",
+    "description": "顯示現場的報警狀態、處理情形以及報警事件處理SOP",
+    "ngModules": ["workSiteSOP"],
+    "js": [
+      "workSite.module.js",
+      "workSite.controller.js",
+      "config.controller.js",
+      "workSite.config.js"
+    ],
+    "css":["views/style.css"],
+    "imports": [],
+    "copy": []
+  }

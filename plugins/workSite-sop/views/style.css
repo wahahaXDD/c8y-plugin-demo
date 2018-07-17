@@ -1,0 +1,4 @@
+.work-site-table, .work-site-table.table>thead:first-child>tr:first-child>th {
+    margin-top: 10px;
+    font-size: 16px;
+}
