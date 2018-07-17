@@ -107,7 +107,7 @@
             order *= -1;
         };
 
-        function run(){
+        function run() {
             $q.all($scope.getGroup)
                 .then($scope.countAlarms);
         }
@@ -115,15 +115,15 @@
         run();
 
         c8yRealtime.addListener(
-            scopeId, 
-            channel, 
-            'CREATE', 
+            scopeId,
+            channel,
+            'CREATE',
             run
         );
         c8yRealtime.addListener(
-            scopeId, 
-            channel, 
-            'UPDATE', 
+            scopeId,
+            channel,
+            'UPDATE',
             run
         );
         c8yRealtime.start(scopeId, channel);
@@ -173,9 +173,9 @@
         };
     }
 
-    ModalInstanceCtrl.$inject = ['$uibModalInstance', '$scope', 'c8yAlarms', 'c8yBase', 'configs', 'alarms', 'c8yInventory'];
+    ModalInstanceCtrl.$inject = ['$uibModalInstance', '$scope', 'c8yAlarms', 'c8yBase', 'configs', 'alarms', 'c8yAudits'];
 
-    function ModalInstanceCtrl($uibModalInstance, $scope, c8yAlarms, c8yBase, configs, alarms, c8yInventory) {
+    function ModalInstanceCtrl($uibModalInstance, $scope, c8yAlarms, c8yBase, configs, alarms, c8yAudits) {
         var $ctrl = this;
         $ctrl.SOPs = configs.info;
         $ctrl.show = [false, ''];
@@ -188,11 +188,32 @@
             } else {
                 $ctrl.show[0] = !$ctrl.show[0];
                 $ctrl.show[1] = alarm.type;
+                c8yAudits.list({
+                    source: alarm.id,
+                    pageSize: 100
+                }).then(function (resp) {
+                    // 用 c8yAlarms 修改的 alarm 在 Audit 裡面的類型會是 System，activity 會是
+                    // Availability monitoring record，所以用下行程式做修改
+                    (resp[+resp.length - 1].activity == "Availability monitoring record") && (resp[+resp.length - 1].activity = "Alarm updated", resp[+resp.length - 1].type = "Alarm");
+                    $ctrl.currentInfo.history = resp;
+                    console.log(resp);
+                })
+                $ctrl.currentInfo.type = alarm.type;
+                $ctrl.currentInfo.severity = alarm.severity;
+                $ctrl.currentInfo.id = +alarm.id;
             }
-            $ctrl.currentInfo.type = alarm.type;
         }
         $ctrl.send = function (method) {
-
+            var params = {
+                severity: $ctrl.currentInfo.severity,
+                id: $ctrl.currentInfo.id,
+                status: method == 1 ? "CLEARED" : "ACKNOWLEDGED",
+                text: $ctrl.content,
+                time: moment().format(c8yBase.dateFormat)
+            }
+            c8yAlarms.save(params).then(function (data) {
+                $uibModalInstance.dismiss('cancel');
+            })
         }
     };
 })();
