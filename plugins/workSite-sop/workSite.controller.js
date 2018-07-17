@@ -12,7 +12,8 @@
         "$uibModal",
         "c8yGroups",
         "c8yAlarms",
-        "c8yAlert"
+        "c8yAlert",
+        "c8yRealtime"
     ];
 
     function WorkSiteController(
@@ -21,12 +22,15 @@
         $uibModal,
         c8yGroups,
         c8yAlarms,
-        c8yAlert
+        c8yAlert,
+        c8yRealtime
     ) {
         var $ctrl = this;
         $scope.getGroup = {
             groups: c8yGroups.getTopLevelGroups()
         }
+        var scopeId = $scope.$id;
+        var channel = '/alarms/*';
         $scope.sites = [];
         $scope.hoverActive = false;
         $scope.hoverResolved = false;
@@ -103,8 +107,26 @@
             order *= -1;
         };
 
-        $q.all($scope.getGroup)
-            .then($scope.countAlarms)
+        function run(){
+            $q.all($scope.getGroup)
+                .then($scope.countAlarms);
+        }
+
+        run();
+
+        c8yRealtime.addListener(
+            scopeId, 
+            channel, 
+            'CREATE', 
+            run
+        );
+        c8yRealtime.addListener(
+            scopeId, 
+            channel, 
+            'UPDATE', 
+            run
+        );
+        c8yRealtime.start(scopeId, channel);
 
         $ctrl.open = function (list, type) {
             $ctrl.alarms = {};
@@ -161,17 +183,15 @@
         $ctrl.currentInfo = {};
         $ctrl.content = '';
         $ctrl.showHistory = function (alarm) {
-            if($ctrl.show[1] == alarm.type){
+            if ($ctrl.show[1] == alarm.type) {
                 $ctrl.show[0] = !$ctrl.show[0];
-            }else{
+            } else {
                 $ctrl.show[0] = !$ctrl.show[0];
                 $ctrl.show[1] = alarm.type;
             }
             $ctrl.currentInfo.type = alarm.type;
-
-            console.log(alarm);
         }
-        $ctrl.send = function(method){
+        $ctrl.send = function (method) {
 
         }
     };
