@@ -173,9 +173,9 @@
         };
     }
 
-    ModalInstanceCtrl.$inject = ['$uibModalInstance', '$scope', 'c8yAlarms', 'c8yBase', 'configs', 'alarms', 'c8yAudits'];
+    ModalInstanceCtrl.$inject = ['$uibModalInstance', 'c8yAlarms', 'c8yBase', 'configs', 'alarms', 'c8yAudits'];
 
-    function ModalInstanceCtrl($uibModalInstance, $scope, c8yAlarms, c8yBase, configs, alarms, c8yAudits) {
+    function ModalInstanceCtrl($uibModalInstance, c8yAlarms, c8yBase, configs, alarms, c8yAudits) {
         var $ctrl = this;
         $ctrl.SOPs = configs.info;
         $ctrl.show = [false, ''];
@@ -192,11 +192,23 @@
                     source: alarm.id,
                     pageSize: 100
                 }).then(function (resp) {
-                    // 用 c8yAlarms 修改的 alarm 在 Audit 裡面的類型會是 System，activity 會是
-                    // Availability monitoring record，所以用下行程式做修改
-                    (resp[+resp.length - 1].activity == "Availability monitoring record") && (resp[+resp.length - 1].activity = "Alarm updated", resp[+resp.length - 1].type = "Alarm");
-                    $ctrl.currentInfo.history = resp;
-                    console.log(resp);
+                    $ctrl.currentInfo.history = [];
+                    resp.forEach(function (history) {
+                        var detail = {}
+                        if (history.type == "Alarm") {
+                            var temp = history.text.split(", ");
+                            detail = {
+                                deviceName: temp[0].match(/'(.*?)'/)[1],
+                                alarmText: temp[1].match(/'(.*?)'/)[1],
+                                user: history.user,
+                                time: history.creationTime,
+                            }
+                            if(history.activity == "Alarm updated"){
+                                detail.alarmText = history.changes[0].newValue;
+                            }
+                            $ctrl.currentInfo.history.push(detail);
+                        }
+                    })
                 })
                 $ctrl.currentInfo.type = alarm.type;
                 $ctrl.currentInfo.severity = alarm.severity;

@@ -67,22 +67,35 @@
                     <ul>
                         <li ng-repeat="p in $ctrl.SOPs[$ctrl.currentInfo.type].sop.split(';')">{{p}}</li>
                     </ul>
-                    <p>處理記錄</p>
-                    <ul style="max-height:250px;overflow-y:auto">
-                        <li ng-repeat="q in $ctrl.currentInfo.history|filter:{'type':'Alarm'}">
-                            <span class="pull-left">{{{'Alarm created':'處理進度','Alarm updated':'處理進度','Alarm cleared':'處理進度'}[q.activity]+" | 詳情："+q.text}}</span>
-                            <span class="pull-right">{{q.user}}</span>
-                            <span class="pull-right">{{q.creationTime|date:'yyyy-MM-dd hh:mm:ss'}}</span>
+                    <p>處理進度</p>
+                    <ul class="exec-progress" style="max-height:250px;overflow-y:auto; list-style:none;">
+                        <li ng-repeat="q in $ctrl.currentInfo.history">
+                            <div class="history">
+                                <i c8y-icon="warning" class="status fa fw fa-warning critical" />
+                                <div class="info">
+                                    <div class="basic-info col-6">
+                                        <p>執行操作：{{q.alarmText}}</p>
+                                        <p>操作人：{{q.user}}</p>
+                                    </div>
+                                    <div class="more-info col-6">
+                                        <p>執行操作時間：{{q.time | date: 'yyyy-MM-dd HH:mm:ss'}}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                     <hr style="border-color:#999" ng-show="$ctrl.currentInfo.status!='CLEARED'">
                     <div class="row" ng-show="$ctrl.currentInfo.status!='CLEARED'">
                         <div class="col-sm-9">
-                            <textarea ng-model="$ctrl.content" placeholder="處理內容輸入" rows="3" class="col-sm-12"></textarea>
+                            <textarea ng-model="$ctrl.content" placeholder="處理進度輸入" rows="3" class="col-sm-12"></textarea>
                         </div>
                         <div class="col-sm-3">
-                            <button class="btn btn-success col-sm-12" ng-click="$ctrl.send(0)">送出</button>
-                            <button class="btn btn-danger col-sm-12" ng-click="$ctrl.send(1)">結案</button>
+                            <div class="row" style="padding-right:10px;">
+                                <button class="btn btn-success col-sm-12" ng-click="$ctrl.send(0)">送出</button>
+                            </div>
+                            <div class="row" style="padding-right:10px;">
+                                <button class="btn btn-danger col-sm-12" ng-click="$ctrl.send(1)">結案</button>
+                            </div>
                         </div>
                     </div>
 
